@@ -29,7 +29,7 @@ Other dependecies will be installed inside a docker image
 The following is the folder structure of this project after build:
 
 ```
-/home/gabriel/ur10_ws/
+ur10_ws/
 ├── docker-compose.yaml   # Docker Compose configuration for services
 ├── README.md             # Project documentation
 ├── docker/               # Docker-related files
@@ -82,3 +82,5 @@ Contributions are welcome! Please open an issue or submit a pull request for any
 
 ## License
 This project is licensed under MIT. Please update this section with the appropriate license information.
+
+*README.md created using Copilot*

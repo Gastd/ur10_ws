@@ -63,13 +63,13 @@ This will bring up the defined services. You can interact with the simulation en
 ### Services
 The `docker-compose.yaml` file defines several services for different tasks. These will be detailed as the project evolves.
 
-## Target Audience
+<!-- ## Target Audience
 This project is intended for:
 - Researchers exploring robotic arm simulations.
 - Developers building applications for the UR10 robotic arm.
 
-## Contributing
-Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
+<!-- ## Contributing
+Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes. -->
 
 ## License
 This project is licensed under MIT. Please update this section with the appropriate license information.

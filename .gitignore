@@ -1,0 +1,11 @@
+/src/
+/build/
+/config/
+/install/
+/log/
+/gazebo/
+.cache/
+.venv/
+.env
+*.dat
+recorded.traj

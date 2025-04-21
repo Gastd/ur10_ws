@@ -38,10 +38,26 @@ The following is the folder structure of this project:
 ```
 
 ### Usage
-To start using the project, run the following commands:
+To start using the project, run the following commands to pull dependecies and relevant packages to compile:
 ```bash
-docker-compose up
+./scripts/update
 ```
+
+Build the docker image and compile packages
+```bash
+docker compose run --rm --build compile
+```
+
+To run a bash inside the docker, run:
+```bash
+docker compose run --rm bash
+```
+
+To just compile the packages
+```bash
+docker compose run --rm compile
+```
+
 This will bring up the defined services. You can interact with the simulation environment through the provided Docker interface.
 
 ### Services
@@ -56,5 +72,4 @@ This project is intended for:
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
 
 ## License
-This project is licensed under [your license here]. Please update this section with the appropriate license information.
-# ur10_ws
+This project is licensed under MIT. Please update this section with the appropriate license information.

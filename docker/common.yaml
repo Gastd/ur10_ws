@@ -1,0 +1,70 @@
+services:
+  base:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    image: ur10_ws:$USER  # add username to avoid image collision on multi-user systems
+    volumes:
+      - $HOME/.ros:$HOME/.ros:Z  # for logs and records
+      - $HOME/.ignition:$HOME/.ignition:Z  # gazebo config and models
+      - $HOME/.rviz2:$HOME/.rviz2:Z  # rviz configs
+      - $WORKSPACE:$WORKSPACE:Z
+      - $HOME/.config/ros.org:$HOME/.config/ros.org:Z  # for rqt tools
+    env_file:
+      - ../.env
+    environment:
+      - UID=1000
+      - GID=1000
+      - USER=gabriel
+      - WORKSPACE=/home/gabriel/ur10_ws
+      - ROS_LOCALHOST_ONLY=1  # avoid sending multicast on the local network of your office
+    tty: true
+    stdin_open: true
+    network_mode: host
+    pid: host  # fix a multicast problem, PID are used by DDS to generate unique GUID
+    ipc: host  # used by ROS2 and X11 (for shared memory)
+    privileged: false
+    stop_signal: SIGINT  # Correctly forward SIGINT on services started with 'compose up'
+
+  x11_base:
+    extends:
+      service: base
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:Z
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
+    environment:
+      - DISPLAY
+      - XDG_RUNTIME_DIR
+      - GAZEBO_RESOURCE_PATH
+      - GAZEBO_MODEL_PATH
+    devices:
+      - /dev/input/  # for joypads
+      - /dev/dri/    # for graphic card
+  
+  x11_gpu:
+    extends:
+      service: base
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix:Z
+      - $XDG_RUNTIME_DIR:$XDG_RUNTIME_DIR:Z
+    environment:  # these variables allows to use the GPU when the nvidia profile is 'on-demand'
+      - __NV_PRIME_RENDER_OFFLOAD=1
+      - __GLX_VENDOR_LIBRARY_NAME=nvidia
+      - NVIDIA_DRIVER_CAPABILITIES=all
+      - DISPLAY
+      - XDG_RUNTIME_DIR
+      - GAZEBO_RESOURCE_PATH
+      - GAZEBO_MODEL_PATH
+    devices:
+      - /dev/input/  # for joypads
+      - /dev/dri/    # for graphic card
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]

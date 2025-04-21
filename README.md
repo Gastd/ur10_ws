@@ -14,8 +14,11 @@ This project provides a simulation environment for the UR10 robotic arm using RO
 ### Prerequisites
 Ensure you have the following dependencies installed:
 - Docker
-- ROS2
+
+Other dependecies will be installed inside a docker image
+- ROS2 (Humble)
 - ROS2 Control
+- Ignition Gazebo
 - MoveIt
 
 ### Setup
@@ -23,18 +26,24 @@ Ensure you have the following dependencies installed:
 2. Use Docker to interact with the project. The `docker-compose.yaml` file defines the necessary services.
 
 ### Folder Structure
-The following is the folder structure of this project:
+The following is the folder structure of this project after build:
 
 ```
 /home/gabriel/ur10_ws/
 ├── docker-compose.yaml   # Docker Compose configuration for services
 ├── README.md             # Project documentation
-├── config/               # Configuration files (currently empty)
 ├── docker/               # Docker-related files
+│   ├── Dockerfile        # Dockerfile for building the image
 │   └── common.yaml       # Common Docker service definitions
+│   ├── ros_entrypoints   # ROS entrypoints for container initialization
+│   └── ros_setup         # ROS setup script for environment configuration
+├── scripts/              # Scripts for setup and maintenance
+│   └── update            # Script to pull dependencies and update packages
 └── src/                  # Source code for the project
-    ├── package_1/        # Example package 1
-    └── package_2/        # Example package 2
+    ├── ros_gz/           # ROS2 Gazebo integration packages
+    ├── gz_ros2_control/  # Ignition Gazebo ROS2 control metapackage
+    ├── ur_simulation_gz/ # UR Simulation package for Ignition Gazebo
+    └── ur10_lab_sim/     # Simulation of lab environment with UR10e
 ```
 
 ### Usage
